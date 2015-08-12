@@ -265,10 +265,12 @@ def make_bus(event):
                     if m.group("w") != i:
                         print("pattern: "+m.group("bus"))
                         S2 = S.replace(m.group("bus"), "[" + i + ":0]")
+                    else:
+                        S2 = S
             lines2.append(S2)
             print("S2: "+S2)
         S = "\n".join(lines2)
-        print("\nfinal: "+S)
+        print("\nfinal: ",lines2)
         return S
     
     process_text(repl)
@@ -276,6 +278,11 @@ def make_bus(event):
 
 def make_single(event):
     def repl(S):
+        lines = S.split("\n")
+        lines2 = []
+        for S in lines:
+            pass
+        
         if "[" in S:
             m = re.search(r"(?P<bus>\[\s*\d+\s*\:\s*\d+\s*\]\s)", S)
             while m:
