@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-
-
 #########################################################
 # This script can convert Verilog module instantiation code
 # to port declaration code and vice versa
