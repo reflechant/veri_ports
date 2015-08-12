@@ -4,7 +4,8 @@ Verilog editing automation (mostly creating instantiation templates, lists of po
 How to use it:
 Copy module instantiation Verilog code or port declaration code to the text window. Now you can convert them between each other with "inst. -> ports" and "ports -> inst." buttons.
 
-The recognizes Xilinx IP-cores instantiation templates where a comment is added in each line of .veo files, containing the port's type, direction and width. Like this:
+The program recognizes Xilinx IP-cores instantiation templates where a comment is added in each line of .veo files, containing the port's type, direction and width. Like this:
+
 .xgmii_rxc(xgmii_rxc),		//input wire [3:0] xgmii_rxc
 
 In case of such comment present the generated port declaration will be of corresponding type, width and direction. The program will generate such comments for instantiation templates too.
