@@ -179,7 +179,7 @@ def process_text(fn):
         S = fn(S)
         txt.delete(i + " linestart", j + " lineend")
         txt.insert(i + " linestart", S)
-    finally:
+    except:
         i = txt.index("insert")
         S = txt.get(i + " linestart", i + " lineend")
         S = fn(S)
@@ -241,20 +241,34 @@ def make_bus(event):
     w = int(v.get())
     i = str(w - 1)
 
-    #lines = S.split("\n")
-    #for S in lines:
     def repl(S):
-        if "[" not in S:
-            if "wire" in S:
-                S = S.replace("wire", "wire " + "[" + i + ":0]")
-            elif "reg" in S:
-                S = S.replace("reg", "reg " + "[" + i + ":0]")
-        else:
-            m = re.search(r"(?P<bus>\[\s*(?P<w>\d+)\s*\:\s*\d+\s*\])", S)
-            while m:
-                if m.group("w") != i:
-                    S = S.replace(m.group("bus"), "[" + i + ":0]")
+        lines = S.split("\n")
+        lines2 = []
+        for S in lines:
+            print("S: "+S)
+            S2 = ""
+            if "[" not in S:
+                if "wire" in S:
+                    S2 = S.replace("wire", "wire " + "[" + i + ":0]")
+                elif "reg" in S:
+                    S2 = S.replace("reg", "reg " + "[" + i + ":0]")
+                elif "input" in S:
+                    S2 = S.replace("input", "input " + "[" + i + ":0]")
+                elif "output" in S:
+                    S2 = S.replace("output", "output " + "[" + i + ":0]")
+                else:
+                    S2 = "[" + i + ":0] " + S
+                    
+            else:
                 m = re.search(r"(?P<bus>\[\s*(?P<w>\d+)\s*\:\s*\d+\s*\])", S)
+                if m:
+                    if m.group("w") != i:
+                        print("pattern: "+m.group("bus"))
+                        S2 = S.replace(m.group("bus"), "[" + i + ":0]")
+            lines2.append(S2)
+            print("S2: "+S2)
+        S = "\n".join(lines2)
+        print("\nfinal: "+S)
         return S
     
     process_text(repl)
