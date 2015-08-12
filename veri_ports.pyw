@@ -245,7 +245,6 @@ def make_bus(event):
         lines = S.split("\n")
         lines2 = []
         for S in lines:
-            print("S: "+S)
             S2 = ""
             if "[" not in S:
                 if "wire" in S:
@@ -263,14 +262,11 @@ def make_bus(event):
                 m = re.search(r"(?P<bus>\[\s*(?P<w>\d+)\s*\:\s*\d+\s*\])", S)
                 if m:
                     if m.group("w") != i:
-                        print("pattern: "+m.group("bus"))
                         S2 = S.replace(m.group("bus"), "[" + i + ":0]")
                     else:
                         S2 = S
             lines2.append(S2)
-            print("S2: "+S2)
         S = "\n".join(lines2)
-        print("\nfinal: ",lines2)
         return S
     
     process_text(repl)
@@ -281,13 +277,15 @@ def make_single(event):
         lines = S.split("\n")
         lines2 = []
         for S in lines:
-            pass
-        
-        if "[" in S:
-            m = re.search(r"(?P<bus>\[\s*\d+\s*\:\s*\d+\s*\]\s)", S)
-            while m:
-                S = S.replace(m.group("bus"), "")
+            S2 = ""
+            if "[" in S:
                 m = re.search(r"(?P<bus>\[\s*\d+\s*\:\s*\d+\s*\]\s)", S)
+                if m:
+                    S2 = S.replace(m.group("bus"), "")
+            else:
+                S2 = S
+            lines2.append(S2)
+        S = "\n".join(lines2)
         return S
     process_text(repl)
 
