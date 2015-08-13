@@ -202,6 +202,7 @@ def make_local(event):
     def repl(S):
         S = S.replace("input ", "")
         S = S.replace("output ", "")
+        S = S.replace(",", ";")
         return S
     process_text(repl)
 

@@ -17,7 +17,7 @@ All following buttons can work with single line (the one with the blinking curso
 
 
 "revert" reverses port/ports direction. Doesn't affect inout ports.
-"make local" deletes any input/output/inout text from line/selection.
+"make local" deletes any input/output/inout text from line/selection. It also replaces "," with ";" for obvious reasons.
 
 "wire" changes port type to wire.
 "reg" changes port type to reg.
